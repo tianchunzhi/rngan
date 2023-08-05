@@ -150,8 +150,6 @@ if __name__ == '__main__':
             errD.backward()
             optimizerD.step()   
 
-        print('[%d/%d][%d/%d] Loss_D: %.4f Loss_C: %.4f '% (epoch, nepoch, i, len(dataloader),errD.item(),errC.item()))
-
         err_d.append(errD.item())
         err_c.append(errC.item())
 
