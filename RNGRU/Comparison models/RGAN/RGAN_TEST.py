@@ -10,13 +10,10 @@ import torch.optim as optim
 import torch.utils.data
 import os
 
-
-#定义生成器
-class generator(nn.Module):   #VAE继承自父类：nn.Module
+class generator(nn.Module):   
     def __init__(self):
-        super(generator, self).__init__()   #这是对继承自父类的属性进行初始化。而且是用父类的初始化方法来初始化继承的属性。
-        self.decoder_fc = nn.Sequential(nn.Linear(nz+1,6), nn.ReLU(),nn.Linear(6,7))   #判别器是分类器，需要加sigmoid激活函数
-    #生成器前向传播
+        super(generator, self).__init__()   
+        self.decoder_fc = nn.Sequential(nn.Linear(nz+1,6), nn.ReLU(),nn.Linear(6,7))   
     def forward(self, x):
         output = self.decoder_fc(x)
         return output
@@ -28,12 +25,10 @@ if __name__ == '__main__':
     print("Random Seed: 88")
     random.seed(88)
     torch.manual_seed(88)
-    # 可以优化运行效率
     cudnn.benchmark = True
     print("=====> 构建VAE")
     G = generator()
     G.load_state_dict(torch.load('./CVAE-GAN-VAE_train.pth'))
-    # 生成要生成的目标值y
     import copy
     y_target1 = np.random.randint(15, 29, batch_size)  # 生成600-1000内的batch_size个目标值
     y_target = copy.deepcopy(y_target1)
@@ -71,4 +66,4 @@ if __name__ == '__main__':
 
     if not os.path.exists('./img'):
         os.mkdir('./img')
-    np.savetxt(r'C:\Users\dell\Desktop\鲍鱼数据集\CGAN2/200.csv', data_all,delimiter=',')
+    np.savetxt(r'C:\Users\dell\Desktop\200.csv', data_all,delimiter=',')
