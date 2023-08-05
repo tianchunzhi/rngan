@@ -62,7 +62,7 @@ if __name__ == '__main__':
     # 可以优化运行效率
     cudnn.benchmark = True
 
-    data = np.array(pd.read_csv(r'D:\研二寒假\课题2\不平衡分类数据集\yeast4/train_分层.csv', error_bad_lines=False, lineterminator="\n", encoding="gbk"))
+    data = np.array(pd.read_csv(r'D:\研二寒假\train_分层.csv', error_bad_lines=False, lineterminator="\n", encoding="gbk"))
 
     #对原始数据进行标准化：
     datax = data[:,:-1]
