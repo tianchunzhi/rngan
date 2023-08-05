@@ -30,7 +30,7 @@ if __name__ == '__main__':
     G = generator()
     G.load_state_dict(torch.load('./CVAE-GAN-VAE_train.pth'))
     import copy
-    y_target1 = np.random.randint(15, 29, batch_size)  # 生成600-1000内的batch_size个目标值
+    y_target1 = np.random.randint(15, 29, batch_size) 
     y_target = copy.deepcopy(y_target1)
     y_target = y_target.reshape((-1, 1))
 
