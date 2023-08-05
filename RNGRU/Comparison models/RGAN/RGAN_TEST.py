@@ -34,7 +34,7 @@ if __name__ == '__main__':
     y_target = copy.deepcopy(y_target1)
     y_target = y_target.reshape((-1, 1))
 
-    data = np.array(pd.read_csv(r'C:\Users\dell\Desktop\鲍鱼数据集/鲍鱼train_分层.csv', error_bad_lines=False, lineterminator="\n", encoding="gbk"))
+    data = np.array(pd.read_csv(r'D:\研二寒假\train_分层.csv', error_bad_lines=False, lineterminator="\n", encoding="gbk"))
     datax = data[:, :-1]
     datay = data[:,-1]
 
