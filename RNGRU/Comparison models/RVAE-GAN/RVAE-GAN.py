@@ -83,16 +83,13 @@ if __name__ == '__main__':
 
     data = np.array(pd.read_csv(r'D:\研二寒假\课题\课题数据集\train_分层.csv', error_bad_lines=False, lineterminator="\n", encoding="gbk"))
 
-    #对原始数据进行标准化：
     datax = data[:,:-1]
     datay = data[:,-1]
-    # 打乱顺序：
     index = [i for i in range(len(datax))]
     np.random.shuffle(index)
     datax = datax[index, :]
     datay = datay[index].reshape((-1,1))
 
-    # 特征缩放：归一化
     from sklearn.preprocessing import StandardScaler
     X_scaler = StandardScaler()
     Y_scaler = StandardScaler()
