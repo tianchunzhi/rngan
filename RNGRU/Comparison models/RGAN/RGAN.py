@@ -16,7 +16,7 @@ class generator(nn.Module):
     def __init__(self):
         super(generator, self).__init__()   
         self.decoder_fc = nn.Sequential(nn.Linear(nz+2,6), nn.ReLU(),nn.Linear(6,8))   
-    #生成器前向传播
+    
     def forward(self, x):
         output = self.decoder_fc(x)
         return output
@@ -59,21 +59,17 @@ if __name__ == '__main__':
     random.seed(88)
     torch.manual_seed(88)
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
-    # 可以优化运行效率
     cudnn.benchmark = True
 
     data = np.array(pd.read_csv(r'D:\研二寒假\train_分层.csv', error_bad_lines=False, lineterminator="\n", encoding="gbk"))
 
-    #对原始数据进行标准化：
     datax = data[:,:-1]
     datay = data[:,-1]
-    # 打乱顺序：
     index = [i for i in range(len(datax))]
     np.random.shuffle(index)
     datax = datax[index, :]
     datay = datay[index].reshape((-1,1))
 
-    # 特征缩放：归一化
     from sklearn.preprocessing import StandardScaler
     X_scaler = StandardScaler()
     Y_scaler = StandardScaler()
@@ -108,9 +104,9 @@ if __name__ == '__main__':
             y_target = np.ones(batch_size)
             y_target = torch.from_numpy(y_target)
             y_target = y_target.type(torch.float32).to(device)
-            y_target_one = y_target.type(torch.long)  # 改变数据类型
-            label_onehot_f = torch.zeros((batch_size, 2)).to(device)  # (128,2)标签种类为2
-            label_onehot_f[torch.arange(batch_size).type(torch.long), y_target_one] = 1  # 相当于对标签进行独热编码
+            y_target_one = y_target.type(torch.long)  
+            label_onehot_f = torch.zeros((batch_size, 2)).to(device)  
+            label_onehot_f[torch.arange(batch_size).type(torch.long), y_target_one] = 1  
             output = C(data) 
             for e in range(batch_size):
                 if output[e] >= 0.5:
