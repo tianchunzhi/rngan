@@ -45,7 +45,6 @@ if __name__ == '__main__':
     datax_norm = X_scaler.fit_transform(datax)
     datay = datay.reshape((-1, 1))
     datay_norm = Y_scaler.fit_transform(datay)
-    #这个地方应该用原始数据的标准化还是生成值的标准化？？？？？？
     y_target = Y_scaler.transform(y_target)
     y_target = torch.from_numpy(y_target)
     y_target = y_target.type(torch.float32).to(device)
@@ -54,11 +53,10 @@ if __name__ == '__main__':
     z = torch.randn((batch_size, 4))
     z = torch.cat([z,y_target],1)
     outputs = G.forward(z)
-    # 把属性输出和生成的标签值拼接在一起：
 
     outputs = outputs.detach().numpy()
 
-    outputs = X_scaler.inverse_transform(outputs)   #将属性反归一化
+    outputs = X_scaler.inverse_transform(outputs)   
     y_target1 = y_target1.reshape((-1,1))
 
     data_all = np.concatenate((outputs, y_target1), 1)
